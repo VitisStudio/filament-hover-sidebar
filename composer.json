@@ -1,0 +1,96 @@
+{
+    "name": "vitisstudio/filament-hover-sidebar",
+    "description": "Hover-to-expand flyout sidebar for Filament panels.",
+    "keywords": [
+        "vitisstudio",
+        "laravel",
+        "filamentphp",
+        "filament",
+        "filament-plugin",
+        "filament-hover-sidebar"
+    ],
+    "homepage": "https://github.com/vitisstudio/filament-hover-sidebar",
+    "support": {
+        "issues": "https://github.com/vitisstudio/filament-hover-sidebar/issues",
+        "source": "https://github.com/vitisstudio/filament-hover-sidebar"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vitis Studio",
+            "email": "dan@vitis.studio",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "filament/filament": "^4.0|^5.0",
+        "spatie/laravel-package-tools": "^1.15.0"
+    },
+    "require-dev": {
+        "larastan/larastan": "^3.0",
+        "laravel/pint": "^1.0",
+        "nunomaduro/collision": "^8.0",
+        "orchestra/testbench": "^9.0|^10.0|^11.0",
+        "pestphp/pest": "^3.7|^4.0",
+        "pestphp/pest-plugin-arch": "^3.0|^4.0",
+        "pestphp/pest-plugin-laravel": "^3.0|^4.0",
+        "pestphp/pest-plugin-livewire": "^3.0|^4.0",
+        "rector/rector": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "VitisStudio\\FilamentHoverSidebar\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "VitisStudio\\FilamentHoverSidebar\\Tests\\": "tests/",
+            "Workbench\\App\\": "workbench/app/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "@clear",
+            "@prepare"
+        ],
+        "analyse": "phpstan analyse",
+        "lint": "pint",
+        "refactor": "rector",
+        "test": "pest",
+        "test:lint": "pint --test",
+        "test:refactor": "rector --dry-run",
+        "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+        "prepare": "@php vendor/bin/testbench package:discover --ansi",
+        "build": "@php vendor/bin/testbench workbench:build --ansi",
+        "serve": [
+            "Composer\\Config::disableProcessTimeout",
+            "@build",
+            "@php vendor/bin/testbench serve --ansi"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "VitisStudio\\FilamentHoverSidebar\\FilamentHoverSidebarServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "name": "filament",
+            "type": "composer",
+            "url": "https://packages.filamentphp.com/composer"
+        }
+    ]
+}
