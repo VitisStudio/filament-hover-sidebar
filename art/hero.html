@@ -1,0 +1,80 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:2560px;height:1440px;overflow:hidden}
+  body{
+    font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    position:relative;background:#140d22;
+  }
+  .bg{position:absolute;inset:0;overflow:hidden}
+  .blob{position:absolute;border-radius:50%;filter:blur(190px)}
+  .b1{width:1700px;height:1400px;right:-380px;top:-360px;background:#e01b6a;opacity:.95}
+  .b2{width:1500px;height:1300px;right:180px;bottom:-560px;background:#b91142;opacity:.8}
+  .b3{width:1700px;height:1500px;left:-460px;top:-260px;background:#241a5e;opacity:.95}
+  .b4{width:1500px;height:1300px;left:-360px;bottom:-520px;background:#1a6f86;opacity:.85}
+  .b5{width:1200px;height:1000px;left:820px;top:340px;background:#2b1d63;opacity:.9}
+  .grain{position:absolute;inset:0;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+  .copy{position:absolute;left:110px;top:92px;width:1180px;z-index:6}
+  h1{font-size:158px;line-height:.96;font-weight:800;color:#fff;letter-spacing:-.045em}
+  .sub{margin-top:34px;font-size:47px;line-height:1.34;font-weight:400;color:rgba(255,255,255,.93);max-width:1030px}
+  .sub b{font-weight:700;color:#fff}
+
+  .panel{position:absolute;border-radius:22px;overflow:hidden}
+  .panel img{display:block;width:100%}
+  .front img{width:101.4%}
+  .back{left:96px;top:690px;width:1460px;
+    box-shadow:0 50px 100px -28px rgba(0,0,0,.62);z-index:2}
+  .front{left:1128px;top:322px;width:1352px;
+    box-shadow:0 70px 130px -30px rgba(0,0,0,.78);z-index:4}
+
+  .tag{position:absolute;z-index:7;display:flex;align-items:center;gap:14px;
+    padding:13px 27px;border-radius:100px;font-size:26px;font-weight:600;color:#fff;
+    background:rgba(10,6,20,.62);backdrop-filter:blur(14px);
+    border:1px solid rgba(255,255,255,.26);white-space:nowrap}
+  .tag .dot{width:13px;height:13px;border-radius:50%}
+  .tag-back{left:112px;top:622px}
+  .tag-back .dot{background:#9aa4b2}
+  .tag-front{left:1150px;top:238px}
+  .tag-front .dot{background:#fbbf24;box-shadow:0 0 18px 4px rgba(251,191,36,.65)}
+
+  .cursor{position:absolute;left:152px;top:848px;z-index:8;
+    filter:drop-shadow(0 8px 16px rgba(0,0,0,.85))}
+  .glow{position:absolute;left:-22px;top:718px;width:320px;height:320px;border-radius:50%;
+    background:radial-gradient(circle,rgba(245,158,11,.42) 0%,rgba(245,158,11,.16) 40%,transparent 66%);
+    z-index:5}
+
+  .mark{position:absolute;right:104px;bottom:74px;z-index:9;text-align:right}
+  .mark .n{font-size:40px;font-weight:800;color:#fff;letter-spacing:-.02em}
+  .mark .u{margin-top:7px;font-size:25px;font-weight:500;color:rgba(255,255,255,.62)}
+</style></head><body>
+  <div class="bg">
+    <div class="blob b3"></div><div class="blob b1"></div><div class="blob b4"></div>
+    <div class="blob b2"></div><div class="blob b5"></div>
+    <div class="grain"></div>
+  </div>
+
+  <div class="copy">
+    <h1>Hover<br>Sidebar</h1>
+    <div class="sub">An icon-only rail for Filament panels that expands on hover and
+      <b>flies out over your content</b> &mdash; instead of pushing it.</div>
+  </div>
+
+  <div class="tag tag-back"><span class="dot"></span>Collapsed rail</div>
+  <div class="panel back"><img src="hero-collapsed.png"></div>
+
+  <div class="tag tag-front"><span class="dot"></span>On hover &mdash; content never moves</div>
+  <div class="panel front"><img src="hero-expanded.png"></div>
+
+  <div class="glow"></div>
+  <svg class="cursor" width="62" height="76" viewBox="0 0 24 30">
+    <path d="M3 2l16.5 12.2-7.6.6-4 7.6z" fill="#fff" stroke="#111" stroke-width="1.7" stroke-linejoin="round"/>
+  </svg>
+
+  <div class="mark">
+    <div class="n">Vitis Studio</div>
+    <div class="u">vitisstudio/filament-hover-sidebar</div>
+  </div>
+</body></html>
