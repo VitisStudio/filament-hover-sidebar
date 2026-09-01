@@ -30,8 +30,9 @@ jobs:
             testbench: 10.*
             carbon: 3.*
             collision: 8.*
+          # testbench below 9.9 leaves bootstrap/cache unwritable after package:purge-skeleton
           - laravel: 11.*
-            testbench: 9.*
+            testbench: ^9.9
             carbon: 3.*
             collision: 8.*
         exclude:

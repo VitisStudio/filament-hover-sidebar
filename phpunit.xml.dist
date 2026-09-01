@@ -20,13 +20,12 @@
             <directory>tests</directory>
         </testsuite>
     </testsuites>
-    <coverage>
-        <report>
-            <html outputDirectory="build/coverage"/>
-            <text outputFile="build/coverage.txt"/>
-            <clover outputFile="build/logs/clover.xml"/>
-        </report>
-    </coverage>
+    <!--
+        No coverage report block on purpose. PHPUnit turns coverage on as soon as report
+        outputs are declared, and CI runs without a coverage driver, so it would abort with
+        "No code coverage driver available" before a single test ran, which failOnWarning
+        then turns into a failed job. Ask for coverage explicitly on the command line.
+    -->
     <logging>
         <junit outputFile="build/report.junit.xml"/>
     </logging>

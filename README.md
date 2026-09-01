@@ -13,7 +13,24 @@ flyout menus. What it has no API for is hover-to-expand, and its desktop sidebar
 — in the flex flow — so expanding it reflows the page. This plugin adds the first and fixes the
 second.
 
-Verified against **filament/filament v5.7.7**, Livewire v4, Laravel v13, PHP 8.2+.
+## Requirements
+
+| | Supported |
+| --- | --- |
+| Filament | **v5** only (`^5.0`) — see below |
+| Laravel | 11.28+, 12, 13 |
+| PHP | 8.2, 8.3, 8.4 |
+
+Verified against filament/filament v5.7.7 with Livewire v4 on Laravel 13 and PHP 8.4; CI
+covers every Laravel and PHP combination above at both `--prefer-lowest` and `--prefer-stable`.
+
+**On Filament v4.** The package runs there unmodified — the whole API surface and every CSS
+hook it depends on exist in v4.12.7, and its sidebar stylesheet differs from v5's only in
+using a `--topbar-height` variable where v5 hardcodes `4rem`. Support is still declared as
+`^5.0` deliberately: this plugin overrides core sidebar internals, so it carries real version
+risk, and promising two majors doubles the surface that has to be re-checked on every
+Filament release. If you need v4, widening the constraint locally is likely to work, but it
+is untested territory as far as this package is concerned.
 
 ## How it works
 
