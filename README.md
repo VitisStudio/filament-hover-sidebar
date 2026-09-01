@@ -1,5 +1,7 @@
 # Filament Hover Sidebar
 
+![Hover Sidebar for Filament — an icon rail that expands on hover, over your content, never pushing it.](https://raw.githubusercontent.com/VitisStudio/filament-hover-sidebar/main/art/hero.jpg)
+
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/vitisstudio/filament-hover-sidebar.svg?style=flat-square)](https://packagist.org/packages/vitisstudio/filament-hover-sidebar)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/vitisstudio/filament-hover-sidebar/tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/vitisstudio/filament-hover-sidebar/actions?query=workflow%3Atests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/vitisstudio/filament-hover-sidebar/fix-code-style.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/vitisstudio/filament-hover-sidebar/actions?query=workflow%3A%22fix+code+style%22+branch%3Amain)
@@ -12,6 +14,19 @@ Filament v5 already gives you the collapsed rail (`sidebarCollapsibleOnDesktop()
 flyout menus. What it has no API for is hover-to-expand, and its desktop sidebar is `lg:sticky`
 — in the flex flow — so expanding it reflows the page. This plugin adds the first and fixes the
 second.
+
+## What it looks like
+
+Collapsed, the sidebar is an icon rail and the table gets the width:
+
+![The sidebar collapsed to an icon rail beside a full-width Filament table.](https://raw.githubusercontent.com/VitisStudio/filament-hover-sidebar/main/art/hero-collapsed.png)
+
+Hover it and the full navigation flies out *over* the table. `Owner`, `Stage`, `Value` and
+`Close date` sit at exactly the same pixels in both shots — the sidebar moved, the content
+did not. That is the whole contract. (The second shot is dark mode; the flyout inherits the
+panel background, so themes need no configuration.)
+
+![The expanded sidebar flying out over the same table, whose columns have not moved.](https://raw.githubusercontent.com/VitisStudio/filament-hover-sidebar/main/art/hero-expanded.png)
 
 ## Requirements
 
@@ -257,13 +272,13 @@ the fragile half of the version risk.
 
 ## Changelog
 
-Please see [CHANGELOG](CHANGELOG.md) for what has changed recently.
+Please see [CHANGELOG](https://github.com/VitisStudio/filament-hover-sidebar/blob/main/CHANGELOG.md) for what has changed recently.
 
 ## Credits
 
 - [Vitis Studio](https://github.com/vitisstudio)
-- [All Contributors](../../contributors)
+- [All Contributors](https://github.com/VitisStudio/filament-hover-sidebar/graphs/contributors)
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+The MIT License (MIT). Please see [License File](https://github.com/VitisStudio/filament-hover-sidebar/blob/main/LICENSE.md) for more information.
