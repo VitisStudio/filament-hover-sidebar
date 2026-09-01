@@ -1,6 +1,12 @@
 # Filament Hover Sidebar
 
-![Hover Sidebar for Filament — an icon rail that expands on hover, over your content, never pushing it.](https://raw.githubusercontent.com/VitisStudio/filament-hover-sidebar/main/art/hero.jpg)
+<!-- The Filament plugin directory renders its own hero from the plugin submission, so this one
+     is marked filament-hidden and shows on GitHub only. -->
+<a href="https://github.com/VitisStudio/filament-hover-sidebar" class="filament-hidden">
+    <img alt="Hover Sidebar for Filament — an icon rail that expands on hover, over your content, never pushing it."
+         src="https://raw.githubusercontent.com/VitisStudio/filament-hover-sidebar/main/art/hero.jpg"
+         style="width: 100%; max-width: 100%;">
+</a>
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/vitisstudio/filament-hover-sidebar.svg?style=flat-square)](https://packagist.org/packages/vitisstudio/filament-hover-sidebar)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/vitisstudio/filament-hover-sidebar/tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/vitisstudio/filament-hover-sidebar/actions?query=workflow%3Atests+branch%3Amain)
