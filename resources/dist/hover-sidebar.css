@@ -10,7 +10,13 @@
     margin-inline-end: 0.5rem;
 }
 
-@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+/*
+ * Width alone, deliberately: a coarse pointer gets the same rail, driven by tap instead of
+ * hover (see the `pointerdown` branch in the JS). Gating on `(hover: hover) and
+ * (pointer: fine)` dropped tablets all the way back to core, which put core's collapse
+ * button back in the topbar and left the rail inert under a finger.
+ */
+@media (min-width: 1024px) {
     body.fhs .fhs-pin-btn-ctn {
         display: block;
     }
