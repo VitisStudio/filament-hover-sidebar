@@ -2,16 +2,6 @@
 
 All notable changes to `filament-hover-sidebar` will be documented in this file.
 
-## Unreleased
-
-#### Fixed
-
-- **The rail works on touch screens.** Every rule was behind `(hover: hover) and (pointer: fine)`, so a tablet in landscape — an iPad at 1180px reports `hover: none` and `pointer: coarse` — fell all the way back to core Filament: core's collapse chevron reappeared in the topbar, the pin button vanished, and the rail sat inert because only `mouseenter`/`mouseleave` were bound.
-
-  The CSS is now gated on `min-width: 1024px` alone, and the JS reads `event.pointerType`: a mouse keeps the delayed hover peek, while touch and pen get a press. On touch, a `pointerdown` elsewhere on the document, or a navigation, collapses the rail again.
-
-- **A press on a collapsed rail expands it instead of navigating.** The rail shows icons with no labels, so a press on one is a request to see the nav; the next press follows the link. This is enforced by a capture-phase `click` listener on the sidebar, because `preventDefault()` on `pointerdown` does not cancel the click that follows, and because Alpine's `navigate` plugin binds click on the link element itself — only a capture listener above it runs first, and only `stopPropagation()` keeps the event away from it. Keyboard activation (`detail === 0`) is exempt, since `focusin` has already expanded the rail.
-
 ## v0.1.2 - Plugin Directory Fix - 2026-09-01
 
 Documentation only. The plugin's runtime behaviour, API and CSS are unchanged — v0.1.1 and v0.1.2 install and behave identically.
