@@ -4,6 +4,7 @@ use Filament\Facades\Filament;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\Support\Facades\FilamentView;
+use Filament\Support\Icons\Heroicon;
 use Filament\View\PanelsRenderHook;
 use VitisStudio\FilamentHoverSidebar\HoverSidebarPlugin;
 
@@ -104,8 +105,12 @@ it('renders the pin button in the topbar when pinnable', function () {
     expect($html)
         ->toContain('fhs-pin-btn-ctn')
         ->toContain('$store.fhs.togglePin()')
-        ->toContain('Pin sidebar open')
-        ->toContain('Unpin sidebar');
+        ->toContain('Keep sidebar open')
+        ->toContain('Collapse sidebar');
+
+    // Blade Icons throws if the set is unregistered, so reaching here proves it resolved; the
+    // rendered markup is the inlined SVG, not the icon name.
+    expect(substr_count($html, '<svg'))->toBe(2);
 });
 
 it('omits the pin button when not pinnable', function () {
@@ -132,4 +137,37 @@ it('renders nothing on a panel that does not have the plugin', function () {
 
     expect(FilamentView::renderHook(PanelsRenderHook::BODY_START, scopes: [Dashboard::class])->toHtml())->toBe('')
         ->and(FilamentView::renderHook(PanelsRenderHook::TOPBAR_START)->toHtml())->toBe('');
+});
+
+it('defaults to the Phosphor sidebar icons', function () {
+    $plugin = HoverSidebarPlugin::make();
+
+    expect($plugin->getUnpinnedIcon())->toBe('phosphor-sidebar-simple-light')
+        ->and($plugin->getPinnedIcon())->toBe('phosphor-sidebar-simple-fill');
+});
+
+it('lets each icon be overridden, and reset by passing null', function () {
+    $plugin = HoverSidebarPlugin::make()
+        ->unpinnedIcon('heroicon-o-bars-3')
+        ->pinnedIcon(Heroicon::OutlinedXMark);
+
+    expect($plugin->getUnpinnedIcon())->toBe('heroicon-o-bars-3')
+        ->and($plugin->getPinnedIcon())->toBe(Heroicon::OutlinedXMark);
+
+    expect($plugin->unpinnedIcon(null)->getUnpinnedIcon())->toBe('phosphor-sidebar-simple-light');
+});
+
+it('renders the overridden icons in the topbar', function () {
+    $panel = activePanel();
+
+    HoverSidebarPlugin::make()
+        ->unpinnedIcon('heroicon-o-bars-3')
+        ->pinnedIcon(Heroicon::OutlinedXMark)
+        ->boot($panel);
+
+    $html = FilamentView::renderHook(PanelsRenderHook::TOPBAR_START)->toHtml();
+
+    // Both resolve to inlined SVGs; neither default should be reachable by name.
+    expect(substr_count($html, '<svg'))->toBe(2)
+        ->and($html)->not->toContain('sidebar-simple');
 });

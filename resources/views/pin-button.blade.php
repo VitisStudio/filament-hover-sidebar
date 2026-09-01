@@ -5,21 +5,25 @@
 >
     <x-filament::icon-button
         color="gray"
-        icon="heroicon-o-lock-open"
+        :icon="$unpinnedIcon"
         icon-size="lg"
         :label="__('filament-hover-sidebar::hover-sidebar.pin')"
+        :tooltip="__('filament-hover-sidebar::hover-sidebar.pin')"
         x-show="! $store.fhs.pinned"
         x-on:click="$store.fhs.togglePin()"
         aria-controls="fi-main-sidebar"
+        aria-pressed="false"
     />
 
     <x-filament::icon-button
         color="gray"
-        icon="heroicon-s-lock-closed"
+        :icon="$pinnedIcon"
         icon-size="lg"
         :label="__('filament-hover-sidebar::hover-sidebar.unpin')"
+        :tooltip="__('filament-hover-sidebar::hover-sidebar.unpin')"
         x-show="$store.fhs.pinned"
         x-on:click="$store.fhs.togglePin()"
         aria-controls="fi-main-sidebar"
+        aria-pressed="true"
     />
 </div>

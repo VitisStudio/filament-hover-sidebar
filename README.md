@@ -69,6 +69,23 @@ an `fhs` body class the plugin adds.
 | `closeDelay(int $ms)` | `180` | Grace period before a departing pointer collapses the rail. |
 | `pinnable(bool)` | `true` | Renders the topbar pin toggle. Set `false` for hover-only. |
 | `pinnedByDefault(bool)` | `false` | Initial value of the persisted `pinned` preference. |
+| `unpinnedIcon(...)` | `phosphor-sidebar-simple-light` | Toggle icon while the sidebar is a rail — click to pin it open. |
+| `pinnedIcon(...)` | `phosphor-sidebar-simple-fill` | Toggle icon while the sidebar is pinned — click to collapse it. |
+
+Both icons accept anything Filament's icon components take — a Blade Icons name, a
+`BackedEnum`, or an `Htmlable`. Pass `null` to restore the packaged default:
+
+```php
+use Filament\Support\Icons\Heroicon;
+
+HoverSidebarPlugin::make()
+    ->unpinnedIcon(Heroicon::OutlinedBars3)
+    ->pinnedIcon('heroicon-s-x-mark')
+```
+
+The defaults come from [Phosphor](https://phosphoricons.com) via
+`codeat3/blade-phosphor-icons`, which the package requires — no Heroicon set ships a sidebar
+panel glyph. Override both if you would rather not render Phosphor at all.
 
 Two CSS custom properties are available for theming, both with fallbacks:
 

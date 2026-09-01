@@ -3,8 +3,8 @@
 // translations for VitisStudio/FilamentHoverSidebar
 return [
 
-    'pin' => 'Pin sidebar open',
+    'pin' => 'Keep sidebar open',
 
-    'unpin' => 'Unpin sidebar',
+    'unpin' => 'Collapse sidebar',
 
 ];

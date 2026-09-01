@@ -2,11 +2,13 @@
 
 namespace VitisStudio\FilamentHoverSidebar;
 
+use BackedEnum;
 use Filament\Contracts\Plugin;
 use Filament\Facades\Filament;
 use Filament\Panel;
 use Filament\Support\Facades\FilamentView;
 use Filament\View\PanelsRenderHook;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Facades\Blade;
 
 class HoverSidebarPlugin implements Plugin
@@ -18,6 +20,10 @@ class HoverSidebarPlugin implements Plugin
     protected bool $isPinnable = true;
 
     protected bool $isPinnedByDefault = false;
+
+    protected string | BackedEnum | Htmlable | null $pinnedIcon = null;
+
+    protected string | BackedEnum | Htmlable | null $unpinnedIcon = null;
 
     public static function make(): static
     {
@@ -69,6 +75,27 @@ class HoverSidebarPlugin implements Plugin
         return $this;
     }
 
+    /**
+     * Icon for the toggle while the sidebar is pinned open — the one that collapses it again.
+     * Pass null to restore the packaged default.
+     */
+    public function pinnedIcon(string | BackedEnum | Htmlable | null $icon): static
+    {
+        $this->pinnedIcon = $icon;
+
+        return $this;
+    }
+
+    /**
+     * Icon for the toggle while the sidebar is an unpinned rail — the one that pins it open.
+     */
+    public function unpinnedIcon(string | BackedEnum | Htmlable | null $icon): static
+    {
+        $this->unpinnedIcon = $icon;
+
+        return $this;
+    }
+
     public function getOpenDelay(): int
     {
         return $this->openDelay;
@@ -87,6 +114,16 @@ class HoverSidebarPlugin implements Plugin
     public function isPinnedByDefault(): bool
     {
         return $this->isPinnedByDefault;
+    }
+
+    public function getPinnedIcon(): string | BackedEnum | Htmlable
+    {
+        return $this->pinnedIcon ?? 'phosphor-sidebar-simple-fill';
+    }
+
+    public function getUnpinnedIcon(): string | BackedEnum | Htmlable
+    {
+        return $this->unpinnedIcon ?? 'phosphor-sidebar-simple-light';
     }
 
     public function register(Panel $panel): void
@@ -127,7 +164,10 @@ class HoverSidebarPlugin implements Plugin
         FilamentView::registerRenderHook(
             PanelsRenderHook::TOPBAR_START,
             fn (): string => $this->isActivePanel($panel)
-                ? view('filament-hover-sidebar::pin-button')->render()
+                ? view('filament-hover-sidebar::pin-button', [
+                    'pinnedIcon' => $this->getPinnedIcon(),
+                    'unpinnedIcon' => $this->getUnpinnedIcon(),
+                ])->render()
                 : '',
         );
     }
