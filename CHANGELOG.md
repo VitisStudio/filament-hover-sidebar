@@ -2,6 +2,23 @@
 
 All notable changes to `filament-hover-sidebar` will be documented in this file.
 
+## v0.1.2 - Plugin Directory Fix - 2026-09-01
+
+Documentation only. The plugin's runtime behaviour, API and CSS are unchanged — v0.1.1 and v0.1.2 install and behave identically.
+
+#### Fixed
+
+- **The README hero no longer double-renders on the Filament plugin directory.** The directory shows its own hero from the plugin submission, so the README banner appeared a second time directly beneath it. It is now wrapped in an anchor carrying `filament-hidden`, the convention the established directory plugins use — GitHub ignores the class and renders the image, filamentphp.com strips the element. The banner is HTML rather than Markdown as a result, since `![]()` has nowhere to put a class.
+  
+- **The hero artwork now meets the directory's image spec.** It was 1672×941, which failed `16:9, at least 2560×1440` on both counts: under the size floor, and 1.77683 rather than an exact 1.77778. It is now 2560×1440 JPEG at exact 16:9.
+  
+
+### What's Changed
+
+* Hide the README hero from the Filament plugin directory by @acepoblete in https://github.com/VitisStudio/filament-hover-sidebar/pull/2
+
+**Full Changelog**: https://github.com/VitisStudio/filament-hover-sidebar/compare/v0.1.1...v0.1.2
+
 ## v0.1.1 - CI Fix and README Artwork - 2026-09-01
 
 Housekeeping release. The plugin's runtime behaviour, API and CSS are unchanged — v0.1.0 and v0.1.1 install and behave identically.
