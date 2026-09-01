@@ -13,8 +13,7 @@ flyout menus. What it has no API for is hover-to-expand, and its desktop sidebar
 — in the flex flow — so expanding it reflows the page. This plugin adds the first and fixes the
 second.
 
-Supports **Filament v4 and v5**. Verified against **filament/filament v5.7.7** (Livewire v4)
-and **v4.12.7** (Livewire v3), on Laravel 11–13, PHP 8.2+.
+Verified against **filament/filament v5.7.7**, Livewire v4, Laravel v13, PHP 8.2+.
 
 ## How it works
 
@@ -121,10 +120,8 @@ php artisan vendor:publish --tag="filament-hover-sidebar-translations"
   `Panel::boot()` only runs for the active panel, and the hook closures re-check
   `Filament::getCurrentOrDefaultPanel()`, so unscoped registration stays panel-correct.
 - **Version risk lives here.** This overrides `.fi-sidebar` positioning and hides core buttons
-  by class name. Re-check `vendor/filament/filament/resources/css/components/sidebar.css` on
-  minor upgrades. Between v4.12.7 and v5.7.7 that file differs only in using a
-  `--topbar-height` variable where v5 hardcodes `4rem` — nothing this plugin depends on — but
-  that is a courtesy of those two releases, not a guarantee.
+  by class name. Pin `filament/filament` and re-check
+  `vendor/filament/filament/resources/css/components/sidebar.css` on minor upgrades.
 
 ## Try it without an app
 
@@ -169,14 +166,6 @@ copies them into `public/js` and `public/css`.
 
 ```bash
 composer test
-```
-
-The suite runs unmodified against both major versions; CI covers `^4.0` and `^5.0` across
-Laravel 11–13. To switch locally:
-
-```bash
-composer update "filament/*" livewire/livewire --with-all-dependencies  # highest (v5)
-composer require "filament/filament:^4.0" --with-all-dependencies       # pin to v4
 ```
 
 The package suite covers the PHP surface: plugin defaults, fluent configuration, the
