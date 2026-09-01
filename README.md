@@ -146,6 +146,11 @@ php artisan vendor:publish --tag="filament-hover-sidebar-translations"
 
 - **Hover-to-expand** — the unpinned rail widens after `openDelay`, collapses after `closeDelay`.
   Keyboard `focusin`/`focusout` expand it too, so tabbing into the nav works.
+- **Tap-to-expand** — a press on the collapsed rail expands it and goes nowhere: with no labels
+  showing, a press on an icon is a request to see the nav, not to follow it. The next press
+  navigates. On touch, a press anywhere else collapses the rail again. Both delays are skipped,
+  since a press is deliberate in a way a drifting pointer is not. Keyboard activation is
+  exempt — `focusin` has already expanded the rail by then.
 - **Flyout** — the expanded sidebar is `position: fixed` over the content; `.fi-main-ctn` keeps
   its collapsed-width padding, so nothing reflows and no table re-lays-out mid-hover.
 - **Drawer** — the pin button switches to core's sticky push behaviour, persisted per browser.
@@ -161,8 +166,19 @@ php artisan vendor:publish --tag="filament-hover-sidebar-translations"
   `overflow-x: hidden`.
 - **Long labels** clip during the width transition for the same reason. Either accept it or add
   `overflow-x: clip` with a wider padding box.
-- **Touch devices.** Everything is behind `(hover: hover) and (pointer: fine)`. Touch has no
-  `mouseleave`, so an ungated build would leave the sidebar stuck open.
+- **Touch devices.** The rail is gated on width alone (`min-width: 1024px`), so a tablet in
+  landscape gets it. What differs is the driver: the JS reads `event.pointerType`, so `mouse`
+  keeps the hover peek and `touch`/`pen` get the press behaviour above. Touch fires no
+  `pointerleave`, so a tapped-open flyout is dismissed by a `pointerdown` elsewhere on the
+  document or by navigating; a hovered-open one is left alone across a Livewire navigation,
+  because the pointer may still be resting on the rail. Gating the CSS on
+  `(hover: hover) and (pointer: fine)` — as v0.1.x did — drops tablets all the way back to core,
+  which puts core's collapse button back in the topbar and leaves the rail inert under a finger.
+- **Swallowing that first press takes a capture-phase `click` listener.** `preventDefault()` on
+  a `pointerdown` does not cancel the click that follows it, so a tap still navigated. The
+  listener also has to run in the capture phase: Alpine's `navigate` plugin binds click on the
+  link element itself, so only a listener above it in the tree gets there first, and it takes
+  `stopPropagation()` — not just `preventDefault()` — to keep the event off it.
 - **`isOpen` still persists.** Core `$persist`s it under `isOpen` / `isOpenDesktop`, so peeking
   writes localStorage on every hover. Harmless — the store overwrites from `fhs.pinned` on boot
   — but do not treat those keys as meaningful once this plugin is installed.
