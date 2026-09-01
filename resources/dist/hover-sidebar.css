@@ -24,11 +24,25 @@
     }
 
     body.fhs.fi-body-has-sidebar-collapsible-on-desktop:not(.fhs-pinned) {
+        /*
+         * Core's desktop sidebar is `lg:bg-transparent` and simply shows the panel background
+         * painted on `.fi-body`. Going `position: fixed` takes it out of the flow, so it has to
+         * paint its own. Inherit that colour down the ancestor chain rather than naming one:
+         * Tailwind v4 only emits theme variables that are actually used, so `--color-gray-50`
+         * is not reliably defined, and any hardcoded value breaks custom themes — and dark mode
+         * comes along for free. `:has()` keeps this off `.fi-sidebar-close-overlay`, whose
+         * translucent scrim is deliberate.
+         */
+        .fi-layout,
+        .fi-layout > *:has(.fi-sidebar) {
+            background-color: inherit;
+        }
+
         /* Out of the flex flow, so widening it overlays instead of reflowing. */
         .fi-sidebar {
             position: fixed;
             width: var(--collapsed-sidebar-width);
-            background-color: var(--fhs-sidebar-bg, #ffffff);
+            background-color: var(--fhs-sidebar-bg, inherit);
             transition: width var(--fhs-duration, 150ms) ease;
         }
 
@@ -47,10 +61,6 @@
         .fi-main-ctn {
             padding-inline-start: var(--collapsed-sidebar-width);
         }
-    }
-
-    .dark body.fhs.fi-body-has-sidebar-collapsible-on-desktop:not(.fhs-pinned) .fi-sidebar {
-        background-color: var(--fhs-sidebar-bg-dark, #111827);
     }
 }
 

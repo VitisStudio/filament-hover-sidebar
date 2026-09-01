@@ -87,12 +87,12 @@ The defaults come from [Phosphor](https://phosphoricons.com) via
 `codeat3/blade-phosphor-icons`, which the package requires — no Heroicon set ships a sidebar
 panel glyph. Override both if you would rather not render Phosphor at all.
 
-Two CSS custom properties are available for theming, both with fallbacks:
+The flyout inherits the panel's own background, so custom themes and dark mode are picked up
+with no configuration. Override only if you want the flyout to differ from the panel:
 
 ```css
 :root {
-    --fhs-sidebar-bg: #ffffff;
-    --fhs-sidebar-bg-dark: #111827;
+    --fhs-sidebar-bg: #ffffff; /* defaults to the panel background */
     --fhs-duration: 150ms;
 }
 ```
@@ -131,6 +131,13 @@ php artisan vendor:publish --tag="filament-hover-sidebar-translations"
 - **Do not** attempt a CSS-only version (`display: block !important` over `x-show`). Alpine
   still believes the sidebar is collapsed, so tooltips fire over the now-visible labels,
   `aria-expanded` reports `false`, and icon'd groups stay stuck in dropdown mode.
+- **The flyout has to paint its own background.** Core's desktop sidebar is
+  `lg:bg-transparent` and just shows the panel colour painted on `.fi-body`; `position: fixed`
+  takes it out of the flow, so it needs one of its own. It inherits that down the ancestor
+  chain rather than naming a colour — Tailwind v4 only emits theme variables that are actually
+  used, so `--color-gray-50` is not reliably defined, and any hardcoded value breaks custom
+  themes. The `:has()` selector keeps this off `.fi-sidebar-close-overlay`, whose translucent
+  scrim is deliberate.
 - **Render hooks here must be unscoped.** Scoping them to the panel id renders nothing. Core
   passes a *page's* render-hook scopes (`getRenderHookScopes()` — page and resource class names)
   to `BODY_START`, and passes no scopes at all to `TOPBAR_START`; a panel id matches neither.
